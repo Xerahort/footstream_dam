@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Footstream (EN)</string>
+    <string name="clasification">Classification</string>
+    <string name="action_settings">Settings</string>
+    <string name="settings">Settings</string>
+    <string name="radio">Radios</string>
+    <string name="favorites">Favorites</string>
+    <string name="alarm_sleep">Alarm and Sleep</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="news">News</string>
+    <string name="cal">Calendar</string>
+    <string name="notifications">Notifications</string>
+    <string name="ra_finder">Emblem finder</string>
+    <string name="tickets">Tickets</string>
+    <string name="title_activity_main2">Main2Activity</string>
+    <string name="title_activity_splash">Main2Activity</string>
+    <string name="example">Equipo, partido, etc...</string>
+    <string name="buscador">Buscador</string>
+</resources>

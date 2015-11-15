@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">Footstream</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_splash">SplashActivity</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="title_activity_main2">Main2Activity</string>
+    <string name="clasification">Clasificación</string>
+    <string name="notifications">Notificaciones</string>
+    <string name="alarm_sleep">Alarma y Sleep</string>
+    <string name="favorites">Favoritos</string>
+    <string name="ra_finder">Buscador de escudos</string>
+    <string name="news">Noticias</string>
+    <string name="radio">Radios deportivas</string>
+    <string name="cal">Calendario</string>
+    <string name="settings">Ajustes</string>
+    <string name="tickets">Entradas</string>
+    <string name="example">Equipo, partido, etc...</string>
+    <string name="buscador">Buscador</string>
+</resources>

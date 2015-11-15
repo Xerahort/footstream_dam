@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Footstream (ES)</string>
+    <string name="clasification">Clasificación</string>
+    <string name="settings">Ajustes</string>
+    <string name="radio">Radios deportivas</string>
+    <string name="favorites">Favoritos</string>
+    <string name="alarm_sleep">Alarma y Sleep</string>
+    <string name="cal">Calendario</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="news">Noticias</string>
+    <string name="notifications">Notificaciones</string>
+    <string name="ra_finder">Buscador de escudos</string>
+    <string name="tickets">Entradas</string>
+    <string name="action_settings">Configuración</string>
+    <string name="title_activity_main2">Main2Activity</string>
+    <string name="title_activity_splash">Main2Activity</string>
+    <string name="example">Equipo, partido, etc...</string>
+    <string name="buscador">Buscador</string>
+</resources>
