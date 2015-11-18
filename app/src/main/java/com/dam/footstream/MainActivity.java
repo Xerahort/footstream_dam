@@ -115,6 +115,8 @@ public class MainActivity extends AppCompatActivity
             startActivity(new Intent(MainActivity.this, ClasificacionActivity.class));
         } else if (id == R.id.nav_noticias) {
             startActivity(new Intent(MainActivity.this, NoticiasActivity.class));
+        } else if (id == R.id.nav_radios) {
+            startActivity(new Intent(MainActivity.this, RadiosActivity.class));
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
