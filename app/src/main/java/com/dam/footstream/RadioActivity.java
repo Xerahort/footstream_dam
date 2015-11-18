@@ -11,13 +11,17 @@ import android.media.MediaPlayer.OnPreparedListener;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+
+import com.dam.adapters.ImageAdapter;
 
 public class RadioActivity extends AppCompatActivity implements OnClickListener {
 
-    private Button buttonPlay;
-    private Button buttonStopPlay;
+    private ImageButton buttonPlay;
+    private ImageButton buttonStopPlay;
     private MediaPlayer player;
+    private ImageView logo;
 
     /** Called when the activity is first created. */
     @Override
@@ -32,11 +36,15 @@ public class RadioActivity extends AppCompatActivity implements OnClickListener 
 
     private void initializeUIElements() {
 
-        buttonPlay = (Button) findViewById(R.id.button_play);
+        logo = (ImageView) findViewById(R.id.image_radio);
+        logo.setImageResource(ImageAdapter.mThumbIds[getIntent().getIntExtra(RadiosActivity.RADIO_LOGO_EXTRA,0)]);
+
+        buttonPlay = (ImageButton) findViewById(R.id.button_play);
         buttonPlay.setOnClickListener(this);
 
-        buttonStopPlay = (Button) findViewById(R.id.button_stop);
+        buttonStopPlay = (ImageButton) findViewById(R.id.button_stop);
         buttonStopPlay.setEnabled(false);
+        buttonStopPlay.setVisibility(View.GONE);
         buttonStopPlay.setOnClickListener(this);
 
     }
@@ -50,8 +58,10 @@ public class RadioActivity extends AppCompatActivity implements OnClickListener 
     }
 
     private void startPlaying() {
+        buttonStopPlay.setVisibility(View.VISIBLE);
         buttonStopPlay.setEnabled(true);
         buttonPlay.setEnabled(false);
+        buttonPlay.setVisibility(View.GONE);
 
         player.prepareAsync();
 
@@ -71,8 +81,11 @@ public class RadioActivity extends AppCompatActivity implements OnClickListener 
             initializeMediaPlayer();
         }
 
+        buttonPlay.setVisibility(View.VISIBLE);
         buttonPlay.setEnabled(true);
         buttonStopPlay.setEnabled(false);
+        buttonStopPlay.setVisibility(View.GONE);
+
     }
 
     private void initializeMediaPlayer() {

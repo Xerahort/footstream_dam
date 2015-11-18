@@ -39,13 +39,12 @@ public class ImageAdapter extends BaseAdapter {
         } else {
             imageView = (ImageView) convertView;
         }
-
         imageView.setImageResource(mThumbIds[position]);
         return imageView;
     }
 
     // references to our images
-    private Integer[] mThumbIds = {
+    static public Integer[] mThumbIds = {
             R.drawable.ic_marca,
             R.drawable.ic_ser
     };

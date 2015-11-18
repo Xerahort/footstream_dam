@@ -12,12 +12,14 @@ import com.dam.adapters.ImageAdapter;
 
 public class RadiosActivity extends AppCompatActivity {
 
+    public static final String RADIO_LOGO_EXTRA = "radio";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_radios);
 
-        GridView gridview = (GridView) findViewById(R.id.gridview_radios);
+        final GridView gridview = (GridView) findViewById(R.id.gridview_radios);
         gridview.setAdapter(new ImageAdapter(this));
 
         gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -25,7 +27,10 @@ public class RadiosActivity extends AppCompatActivity {
                                     int position, long id) {
                 Toast.makeText(RadiosActivity.this, "" + position,
                         Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(RadiosActivity.this, RadioActivity.class));
+                Intent i = new Intent(RadiosActivity.this, RadioActivity.class);
+                i.putExtra(RADIO_LOGO_EXTRA,position);
+                startActivity(i);
+
             }
         });
     }
