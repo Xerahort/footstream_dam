@@ -2,36 +2,30 @@ package com.dam.footstream;
 
 import android.app.AlarmManager;
 import android.app.Dialog;
-import android.app.Notification;
-import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.media.RingtoneManager;
-import android.net.Uri;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.format.DateFormat;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.TextClock;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.dam.receivers.AlarmReceiver;
-
-import org.w3c.dom.Text;
+import com.dam.receivers.SleepReceiver;
 
 import java.util.Calendar;
 
 public class AlarmaSleepActivity extends AppCompatActivity {
 
 
-    private PendingIntent pendingIntent;
+    private PendingIntent pendingIntentAlarm, pendingIntentSleep;
     private CheckBox alarmBox, sleepBox;
     private TextView alarmClock, sleepClock;
 
@@ -49,9 +43,9 @@ public class AlarmaSleepActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-                    showTimePickerDialog(alarmBox, alarmClock);
+                    showTimePickerDialog(alarmBox, alarmClock, false);
                 } else {
-                    cancel();
+                    cancelAlarm();
                 }
             }
         });
@@ -59,31 +53,13 @@ public class AlarmaSleepActivity extends AppCompatActivity {
         sleepBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked)
-                    showTimePickerDialog(sleepBox, sleepClock);
+                if (isChecked) {
+                    showTimePickerDialog(sleepBox, sleepClock, true);
+                } else {
+                    cancelSleep();
+                }
             }
         });
-    }
-
-    public void cancel() {
-        AlarmManager manager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-        manager.cancel(pendingIntent);
-        Toast.makeText(this, "Alarm Canceled", Toast.LENGTH_SHORT).show();
-    }
-
-    public void startAt(int hour, int min) {
-        AlarmManager manager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-        int interval = 1000 * 60 * 20;
-
-        /* Set the alarm to start at 10:30 AM */
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(System.currentTimeMillis());
-        calendar.set(Calendar.HOUR_OF_DAY, 10);
-        calendar.set(Calendar.MINUTE, 30);
-
-        /* Repeating on every 20 minutes interval */
-        manager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
-                interval, pendingIntent);
     }
 
     private class TimePickerFragment extends DialogFragment
@@ -91,10 +67,12 @@ public class AlarmaSleepActivity extends AppCompatActivity {
 
         private CheckBox box;
         private TextView clock;
+        boolean sleep = false;
 
-        public TimePickerFragment(CheckBox box, TextView clock) {
+        public TimePickerFragment(CheckBox box, TextView clock, boolean sleep) {
             this.box = box;
             this.clock = clock;
+            this.sleep = sleep;
         }
 
         @Override
@@ -112,29 +90,76 @@ public class AlarmaSleepActivity extends AppCompatActivity {
         public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
             clock.setText(hourOfDay + ":" + minute);
             box.setChecked(true);
-            startAt(hourOfDay, minute);
-            setAlarm();
+
+            Calendar calNow = Calendar.getInstance();
+            Calendar calSet = (Calendar) calNow.clone();
+
+            calSet.set(Calendar.HOUR_OF_DAY, hourOfDay);
+            calSet.set(Calendar.MINUTE, minute);
+            calSet.set(Calendar.SECOND, 0);
+            calSet.set(Calendar.MILLISECOND, 0);
+
+            if(calSet.compareTo(calNow) <= 0){
+                //Today Set time passed, count to tomorrow
+                calSet.add(Calendar.DATE, 1);
+            }
+
+            if (sleep) setSleep(calSet);
+            else setAlarm(calSet);
         }
 
         @Override
         public void onCancel(DialogInterface dialog) {
             super.onCancel(dialog);
             box.setChecked(false);
-            cancel();
+            cancelAlarm();
         }
     }
 
-    private void setAlarm() {
 
-        /* Retrieve a PendingIntent that will perform a broadcast */
-        Intent alarmIntent = new Intent(AlarmaSleepActivity.this, AlarmReceiver.class);
-        pendingIntent = PendingIntent.getBroadcast(AlarmaSleepActivity.this, 0, alarmIntent, 0);
-
+    void showTimePickerDialog(CheckBox box, TextView clock, boolean sleep) {
+        DialogFragment newFragment = new TimePickerFragment(box, clock, sleep);
+        newFragment.show(getSupportFragmentManager(), "timePicker");
     }
 
-    void showTimePickerDialog(CheckBox box, TextView clock) {
-        DialogFragment newFragment = new TimePickerFragment(box, clock);
-        newFragment.show(getSupportFragmentManager(), "timePicker");
+    public void cancelAlarm() {
+        AlarmManager manager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        manager.cancel(pendingIntentAlarm);
+        Toast.makeText(this, "Alarm Canceled", Toast.LENGTH_SHORT).show();
+    }
+
+    public void cancelSleep() {
+        AlarmManager manager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        manager.cancel(pendingIntentSleep);
+        Toast.makeText(this, "Alarm Canceled", Toast.LENGTH_SHORT).show();
+    }
+
+    public void setAlarm(Calendar calendar) {
+
+        AlarmManager manager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+
+        /* Retrieve a PendingIntent that will perform a broadcast */
+        //Intent alarmIntent = new Intent(AlarmaSleepActivity.this, AlarmReceiver.class);
+        //pendingIntent = PendingIntent.getBroadcast(AlarmaSleepActivity.this, 0, alarmIntent, 0);
+        //manager.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),AlarmManager.INTERVAL_DAY, pendingIntent);
+
+        Intent intent = new Intent(getBaseContext(), AlarmReceiver.class);
+        pendingIntentAlarm = PendingIntent.getBroadcast(getBaseContext(), 1, intent, 0);
+        manager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntentAlarm);
+    }
+
+    public void setSleep(Calendar calendar) {
+
+        AlarmManager manager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+
+        /* Retrieve a PendingIntent that will perform a broadcast */
+        //Intent alarmIntent = new Intent(AlarmaSleepActivity.this, AlarmReceiver.class);
+        //pendingIntent = PendingIntent.getBroadcast(AlarmaSleepActivity.this, 0, alarmIntent, 0);
+        //manager.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),AlarmManager.INTERVAL_DAY, pendingIntent);
+
+        Intent intent = new Intent(getBaseContext(), SleepReceiver.class);
+        pendingIntentSleep = PendingIntent.getBroadcast(getBaseContext(), 1, intent, 0);
+        manager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntentSleep);
     }
 
 }

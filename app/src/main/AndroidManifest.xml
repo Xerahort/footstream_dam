@@ -3,6 +3,7 @@
     package="com.dam.footstream" >
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
     <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
@@ -33,7 +34,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".RadiosActivity"/>
-        <activity android:name=".RadioActivity"/>
+        <activity android:name=".RadioActivity"
+            android:screenOrientation="portrait"/>
         <activity android:name=".EquipoActivity"/>
         <activity android:name=".BusquedaActivity"
             android:launchMode="singleTask">
@@ -42,7 +44,11 @@
             </intent-filter>
 
         </activity>
-        <activity android:name=".AlarmaSleepActivity"/>
+        <activity android:name=".AlarmaSleepActivity"
+            android:screenOrientation="portrait"/>
+
+        <receiver android:name="com.dam.receivers.AlarmReceiver" android:process=":remote" />
+        <receiver android:name="com.dam.receivers.SleepReceiver"/>
     </application>
 
 </manifest>

@@ -1,6 +1,5 @@
 package com.dam.receivers;
 
-import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
@@ -18,8 +17,8 @@ public class AlarmReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
+        Toast.makeText(context, "Alarm", Toast.LENGTH_LONG).show();
         showNotification(context);
-        Toast.makeText(context, "Alarm", Toast.LENGTH_SHORT).show();
     }
 
     private void showNotification(Context context) {
@@ -27,15 +26,15 @@ public class AlarmReceiver extends BroadcastReceiver {
                 new Intent(context, SplashActivity.class), 0);
 
         // define sound URI, the sound to be played when there's a notification
-        Uri soundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
+        Uri soundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE);
 
         // this is it, we'll build the notification!
         NotificationCompat.Builder mB = new NotificationCompat.Builder(context)
-                .setContentTitle("New Post!")
-                .setContentText("Here's an awesome update for you!")
+                .setContentTitle("Footstream")
+                .setContentText("Alarm ")
                 .setSmallIcon(R.drawable.ic_launcher_footstream)
                 .setContentIntent(contentIntent)
-                .setVibrate(new long[] { 1000, 1000, 1000, 1000, 1000 })
+                .setVibrate(new long[]{1000, 1000, 1000, 1000, 1000})
                 .setAutoCancel(true)
                 .setSound(soundUri);
 
