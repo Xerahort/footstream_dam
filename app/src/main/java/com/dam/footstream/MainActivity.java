@@ -120,6 +120,8 @@ public class MainActivity extends AppCompatActivity
             startActivity(new Intent(MainActivity.this, NoticiasActivity.class));
         } else if (id == R.id.nav_radios) {
             startActivity(new Intent(MainActivity.this, RadiosActivity.class));
+        } else if (id == R.id.nav_alarma_sleep) {
+            startActivity(new Intent(MainActivity.this, AlarmaSleepActivity.class));
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
