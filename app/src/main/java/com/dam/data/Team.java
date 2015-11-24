@@ -16,6 +16,15 @@ public class Team {
     private String market_value;
     private String emblem_url;
 
+    public Team() {
+
+    }
+
+    public Team(String id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
 
     public void setId(String id) {
         this.id = id;
@@ -35,5 +44,25 @@ public class Team {
 
     public void setEmblem_url(String emblem_url) {
         this.emblem_url = emblem_url;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getShort_name() {
+        return short_name;
+    }
+
+    public String getMarket_value() {
+        return market_value;
+    }
+
+    public String getEmblem_url() {
+        return emblem_url;
     }
 }

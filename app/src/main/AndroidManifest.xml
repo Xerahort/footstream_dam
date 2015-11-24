@@ -38,6 +38,15 @@
         </activity>
         <activity android:name=".RadioActivity" >
         </activity>
+        <activity android:name=".EquipoActivity">
+        </activity>
+        <activity android:name=".BusquedaActivity"
+            android:launchMode="singleTask">
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH" />
+            </intent-filter>
+
+        </activity>
     </application>
 
 </manifest>

@@ -1,6 +1,7 @@
 package com.dam.network;
 
 import com.dam.data.Team;
+import com.dam.footstream.EquipoActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -18,10 +19,10 @@ import java.net.URL;
 public class DownloadTeamInfo extends NetworkTask<String, Void, Team> {
 
     private String team_id;
+    private EquipoActivity activity;
 
-    @Override
-    protected void onPreExecute() {
-        super.onPreExecute();
+    public DownloadTeamInfo(EquipoActivity activity) {
+        this.activity = activity;
     }
 
     @Override
@@ -31,7 +32,7 @@ public class DownloadTeamInfo extends NetworkTask<String, Void, Team> {
         // enviar cuestión
         try {
             // leer respuesta
-            String response  = readResponse(sendRequest(new URL(HTTP + HOST + PATH + "teams/" + team_id)));
+            String response = readResponse(sendRequest(new URL(HTTP + HOST + PATH + "teams/" + team_id)));
             t = parseTeam(response);
         } catch (IOException e) {
             e.printStackTrace();
@@ -45,6 +46,7 @@ public class DownloadTeamInfo extends NetworkTask<String, Void, Team> {
     @Override
     protected void onPostExecute(Team team) {
         super.onPostExecute(team);
+        activity.dataLoaded(team);
     }
 
 

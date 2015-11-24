@@ -18,6 +18,8 @@ public abstract class NetworkTask<Params, Progress, Result> extends
     static final String HTTP = "http://";
     static final String HOST = "api.football-data.org";
     static final String PATH = "/v1/";
+    static final String FOOTBALL_DATA_HEADER_FIELD = "X-Auth-Token";
+    static final String FOOTBALL_DATA_API_TOKEN = "9f90b4e7721b41c58a1f77a4cfa20e0a";
 
     /**
      * Sends a request to the given URL and returns the network-connection from which the result can be fetched out.
@@ -31,6 +33,11 @@ public abstract class NetworkTask<Params, Progress, Result> extends
         try {
             connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("GET");
+
+            if (url.toString().contains("football-data"))
+                // contacting to football-data => put API-token into HTTP header
+                connection.setRequestProperty(FOOTBALL_DATA_HEADER_FIELD, FOOTBALL_DATA_API_TOKEN);
+
         } catch (IOException e) {
             // throw Exception
             throw e;
