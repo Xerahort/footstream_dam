@@ -13,6 +13,12 @@ import android.widget.Toast;
 import com.dam.footstream.R;
 import com.dam.footstream.SplashActivity;
 
+/**
+ * Configures a Broadcast Receiver that activates the alarm notification
+ * given the alarm intent on user selected time.
+ * <p/>
+ * Created by JMRB on 24.11.2015.
+ */
 public class AlarmReceiver extends BroadcastReceiver {
 
     @Override

@@ -1,18 +1,18 @@
 package com.dam.receivers;
 
-import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.media.RingtoneManager;
-import android.net.Uri;
-import android.support.v4.app.NotificationCompat;
 import android.widget.Toast;
-
-import com.dam.footstream.R;
 import com.dam.footstream.SplashActivity;
 
+
+/**
+ * Configures a Broadcast Receiver that activates the sleep notification
+ * given the alarm intent on user selected time.
+ * <p/>
+ * Created by JMRB on 24.11.2015.
+ */
 public class SleepReceiver extends BroadcastReceiver {
 
     @Override
