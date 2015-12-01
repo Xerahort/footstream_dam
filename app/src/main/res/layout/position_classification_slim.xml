@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/black">
+
+    <TextView
+        android:layout_width="20dp"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="-1"
+        android:id="@+id/classification_position_slim"
+        android:textStyle="bold"
+        android:textColor="#ffffff"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_centerVertical="true"
+        android:layout_alignParentStart="true" />
+
+    <ImageView
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:id="@+id/classification_teamlogo_slim"
+        android:src="@drawable/ic_launcher_footstream"
+        android:layout_gravity="center_vertical"
+        android:layout_marginRight="2dp"
+        android:layout_centerVertical="true"
+        android:layout_toEndOf="@+id/classification_position_slim" />
+
+       <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Team"
+        android:ellipsize="marquee"
+           android:textColor="#ffffff"
+        android:id="@+id/classification_name_slim"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="2dp"
+        android:layout_marginRight="2dp"
+           android:layout_centerVertical="true"
+           android:layout_toEndOf="@+id/classification_teamlogo_slim"
+           android:textSize="16sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="-1"
+        android:id="@+id/classification_points_slim"
+        android:textStyle="bold"
+        android:textColor="#ffffff"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_centerVertical="true"
+        android:layout_toStartOf="@+id/classification_goals_slim" />
+
+    <TextView
+        android:layout_width="20dp"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="-1"
+        android:id="@+id/classification_goals_slim"
+        android:textStyle="bold"
+        android:textColor="#ffffff"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_centerVertical="true"
+        android:layout_alignParentEnd="true" />
+
+</RelativeLayout>

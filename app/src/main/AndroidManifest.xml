@@ -47,6 +47,24 @@
         <activity android:name=".AlarmaSleepActivity"
             android:screenOrientation="portrait"/>
 
+        <!-- Configuration activity which gets launched  on widget being placed on homescreen for first time  -->
+
+        <service
+            android:name="com.dam.network.WidgetService"
+            android:permission="android.permission.BIND_REMOTEVIEWS" />
+
+        <receiver android:name="com.dam.receivers.WidgetProvider" >
+            <intent-filter>
+
+                <!-- This widget provider receives broadcast with following action name or simply onUpdate of AppWidgetProvider is called -->
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <!-- linking up xml file of appwidget-provider to AppWidgetProvider -->
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/widgetinfo" />
+        </receiver>
+
         <receiver android:name="com.dam.receivers.AlarmReceiver" android:process=":remote" />
         <receiver android:name="com.dam.receivers.SleepReceiver"/>
     </application>
