@@ -11,7 +11,8 @@
         android:id="@+id/teamname_textview"
         android:visibility="gone"
         android:gravity="center"
-        android:textSize="40sp"/>
+        android:textSize="40sp"
+        android:background="@color/colorPrimary"/>
 
     <TextView
         android:layout_width="match_parent"
@@ -20,13 +21,15 @@
         android:id="@+id/marketvalue_textview"
         android:visibility="gone"
         android:text="Medium Text"
-        android:gravity="center"/>
+        android:gravity="center"
+        android:background="@color/colorPrimary"/>
 
     <ListView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/matches_listview"
-        android:visibility="gone"/>
+        android:visibility="gone"
+        android:paddingTop="4dp"/>
 
     <ProgressBar
         style="?android:attr/progressBarStyleLarge"

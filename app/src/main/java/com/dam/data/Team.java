@@ -1,5 +1,7 @@
 package com.dam.data;
 
+import java.util.ArrayList;
+
 /**
  * Created by Felix on 17.11.2015.
  */
@@ -15,6 +17,7 @@ public class Team {
     private String short_name;
     private String market_value;
     private String emblem_url;
+    private ArrayList<Match> matches = new ArrayList<>();
 
     public Team() {
 
@@ -65,4 +68,14 @@ public class Team {
     public String getEmblem_url() {
         return emblem_url;
     }
+
+    public void setMatches(ArrayList<Match> matches) {
+        this.matches = matches;
+    }
+
+    public ArrayList<Match> getMatches() {
+        return matches;
+    }
+
+
 }
