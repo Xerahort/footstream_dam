@@ -44,9 +44,12 @@
         android:layout_height="wrap_content"
         android:text="@string/favorito"
         android:id="@+id/tb_favteam"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
         android:checked="false"
-        android:visibility="invisible" />
+        android:visibility="visible"
+        android:background="@android:drawable/btn_star"
+        android:textOff=" "
+        android:textOn=" "
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true" />
 
 </RelativeLayout>
