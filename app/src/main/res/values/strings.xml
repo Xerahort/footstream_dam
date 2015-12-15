@@ -19,4 +19,5 @@
     <string name="tickets">Entradas</string>
     <string name="example">Equipo, partido, etc...</string>
     <string name="buscador">Buscador</string>
+    <string name="favorito">Fav</string>
 </resources>

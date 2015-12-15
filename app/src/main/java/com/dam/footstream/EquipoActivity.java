@@ -7,9 +7,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.CompoundButton;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.ToggleButton;
 
 import com.dam.data.Match;
 import com.dam.data.Team;
@@ -27,6 +29,7 @@ public class EquipoActivity extends AppCompatActivity {
     private TextView marketvalue_textview;
     private ListView matches_listview;
     private ProgressBar loading_progressbar;
+    private ToggleButton fav;
     private BaseAdapter match_adapter;
     private Team team = new Team();
 
@@ -39,6 +42,7 @@ public class EquipoActivity extends AppCompatActivity {
         Intent i = getIntent();
         team_id = i.getStringExtra(TEAM_ID);
 
+        fav = (ToggleButton)findViewById(R.id.tb_favteam);
         matches_listview = (ListView) findViewById(R.id.matches_listview);
         loading_progressbar = (ProgressBar) findViewById(R.id.team_progresscircle);
         marketvalue_textview = (TextView) findViewById(R.id.marketvalue_textview);
@@ -72,6 +76,26 @@ public class EquipoActivity extends AppCompatActivity {
         loading_progressbar.setVisibility(View.GONE);
         marketvalue_textview.setVisibility(View.VISIBLE);
         matches_listview.setVisibility(View.VISIBLE);
+        fav.setVisibility(View.VISIBLE);
+        final String id = team.getName();
+        String isFav = SplashActivity.favorites.getString(id,"");
+        if (isFav.equals(team_id)) fav.setChecked(true);
+        else fav.setChecked(false);
+        fav.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    SplashActivity.favorites_editor.putString(id, team_id);
+                    SplashActivity.favoriteTeams.put(id,team_id);
+                }
+                else {
+                    SplashActivity.favorites_editor.remove(id);
+                    SplashActivity.favoriteTeams.remove(id);
+
+                }
+                SplashActivity.favorites_editor.commit();
+            }
+        });
     }
 
 
