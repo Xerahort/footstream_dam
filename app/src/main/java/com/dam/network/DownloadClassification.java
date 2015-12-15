@@ -84,9 +84,12 @@ public class DownloadClassification extends NetworkTask<String, Void, List<Class
 
             for (int i = 0; i<items.length(); i++) {
                 JSONObject object =  items.getJSONObject(i);
+                String urlString = object.getJSONObject("_links").getJSONObject("team").getString("href");
+                String id = urlString.substring(urlString.lastIndexOf('/') + 1);
                 ClassificationPosition pos =
                         new ClassificationPosition(
                                 object.getInt("position"),
+                                id,
                                 object.getString("teamName"),
                                 object.getInt("points"),
                                 object.getInt("goals"));

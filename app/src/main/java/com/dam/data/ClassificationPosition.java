@@ -19,12 +19,14 @@ public class ClassificationPosition {
     private int wins;
     private int draws;
     private int losses;
+    private String id;
 
     private Team team;
 
     public ClassificationPosition() { }
 
-    public ClassificationPosition(int position, String name, int points, int goals) {
+    public ClassificationPosition(int position, String id, String name, int points, int goals) {
+        this.id = id;
         this.position = position;
         this.name = name;
         this.points = points;
@@ -39,6 +41,7 @@ public class ClassificationPosition {
     public int getWins() { return wins; }
     public int getDraws() { return draws; }
     public int getLosses() { return losses; }
+    public String getId() { return id; }
     public Team getTeam() { return team; }
 
     public void setPosition(int position) { this.position = position; }
@@ -49,6 +52,7 @@ public class ClassificationPosition {
     public void setWins(int wins) { this.wins = wins; }
     public void setDraws(int draws) { this.draws = draws; }
     public void setLosses(int losses) { this.losses = losses; }
+    public void setId(String id) { this.id = id; }
     public void setTeam(Team team) { this.team = team; }
 
 }

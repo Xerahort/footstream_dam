@@ -1,14 +1,12 @@
 package com.dam.network;
 
 /**
- * Created by SoraK on 01/12/2015.
+ * Created by JRB on 01/12/2015.
  */
 
-import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.content.Context;
 import android.content.Intent;
-import android.widget.LinearLayout;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService.RemoteViewsFactory;
 
@@ -50,7 +48,7 @@ public class ListProvider implements RemoteViewsFactory {
 
     private void populateListItem() {
         for (int i = 0; i < 10; i++) {
-            ClassificationPosition item = new ClassificationPosition(i, "Team " + i, i, i);
+            ClassificationPosition item = new ClassificationPosition(i, "Team ", "id " + i, i, i);
             //ClassificationPosition item = new ClassificationPosition(ClasificacionActivity.data[i].getPosition(), ClasificacionActivity.data[i].getName(), ClasificacionActivity.data[i].getPoints(), ClasificacionActivity.data[i].getGoals());
             listItemList.add(item);
         }
