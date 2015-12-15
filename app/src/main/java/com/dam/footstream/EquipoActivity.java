@@ -1,8 +1,8 @@
 package com.dam.footstream;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,11 +20,10 @@ import java.util.concurrent.ExecutionException;
 /**
  * Created by Felix on 17.11.2015.
  */
-public class EquipoActivity extends Activity {
+public class EquipoActivity extends AppCompatActivity {
 
     public static final String TEAM_ID = "team_id";
     private String team_id; // nombre del equipo seleccionado
-    private TextView team_textview;
     private TextView marketvalue_textview;
     private ListView matches_listview;
     private ProgressBar loading_progressbar;
@@ -40,7 +39,6 @@ public class EquipoActivity extends Activity {
         Intent i = getIntent();
         team_id = i.getStringExtra(TEAM_ID);
 
-        team_textview = (TextView) findViewById(R.id.teamname_textview);
         matches_listview = (ListView) findViewById(R.id.matches_listview);
         loading_progressbar = (ProgressBar) findViewById(R.id.team_progresscircle);
         marketvalue_textview = (TextView) findViewById(R.id.marketvalue_textview);
@@ -69,10 +67,9 @@ public class EquipoActivity extends Activity {
      */
     public void dataLoaded(Team team) {
         match_adapter.notifyDataSetChanged();
-        team_textview.setText(team.getName());
+        setTitle(team.getName());
         marketvalue_textview.setText(team.getMarket_value());
         loading_progressbar.setVisibility(View.GONE);
-        team_textview.setVisibility(View.VISIBLE);
         marketvalue_textview.setVisibility(View.VISIBLE);
         matches_listview.setVisibility(View.VISIBLE);
     }
@@ -124,8 +121,8 @@ public class EquipoActivity extends Activity {
                 listitem.awayTeam.setText(m.getAwayTeam().getName());
                 listitem.score.setText(m.getGoalsHomeTeam() + " - " + m.getGoalsAwayTeam());
 
-                if(m.isFinished()) listitem.score.setBackgroundResource(R.color.match_red);
-                else listitem.score.setBackgroundResource(R.color.match_orange);
+                if(m.isFinished()) listitem.score.setBackgroundResource(R.drawable.match_finished_background);
+                else listitem.score.setBackgroundResource(R.drawable.match_not_finished_background);
 
                 return convertView;
             }
