@@ -154,8 +154,9 @@ public class EquipoActivity extends AppCompatActivity {
         return match_adapter;
     }
 
+
     static class MatchListitem {
         TextView date, homeTeam, awayTeam, score;
     }
-
+    
 }

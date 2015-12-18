@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <fragment android:name="com.roomorama.caldroid.CaldroidFragment"
+        android:id="@+id/calendar_fragment"
+        android:layout_weight="1"
+        android:layout_alignParentTop="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <ProgressBar
+        android:id="@+id/calendar_progressbar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_below="@id/calendar_fragment"
+        android:layout_centerHorizontal="true"/>
+
+    <ListView
+        android:id="@+id/calendar_matchlist"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:layout_below="@id/calendar_fragment"
+        android:layout_alignParentBottom="true">
+    </ListView>
+
+</RelativeLayout>

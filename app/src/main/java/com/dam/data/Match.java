@@ -2,6 +2,7 @@ package com.dam.data;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 /**
  * Created by Felix on 07.12.2015.
@@ -79,6 +80,20 @@ public class Match {
 
     public boolean isFinished() {
         return status.equals("FINISHED");
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    /**
+     * Returns the date of the match, setting the time to 0:00. Needed for the HashMap of the calendar data.
+     * @return
+     */
+    public Date getDateWithoutTime() {
+        GregorianCalendar c = new GregorianCalendar();
+        c.setTime(date);
+        return new GregorianCalendar(c.get(GregorianCalendar.YEAR),c.get(GregorianCalendar.MONTH),c.get(GregorianCalendar.DAY_OF_MONTH)).getTime();
     }
 
     @Override

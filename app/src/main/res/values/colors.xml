@@ -8,4 +8,6 @@
 
     <color name="match_red">#dcd32f2f</color>
     <color name="match_orange">#dcffc107</color>
+    <color name="calendar_highlight_notPressed">#FFC107</color>
+    <color name="calendar_highlight_pressed">#FF8F00</color>
 </resources>

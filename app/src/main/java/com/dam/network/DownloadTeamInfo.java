@@ -21,6 +21,8 @@ import java.util.TimeZone;
  * Downloads informacion about the team from the API football-data.org
  * The ID of the team is passed as parameter (String).
  * A Team-object is returned, containing all the informacion about the team.
+ * The view of the EquipoActivity gets updated after the download
+ * If the view of the EquipoActivity doesn't need to be updated, simply pass <code>null</code> for the activity-parameter in the constructor.
  * <p/>
  * Created by Felix on 17.11.2015.
  */
@@ -56,7 +58,8 @@ public class DownloadTeamInfo extends NetworkTask<String, Void, Team> {
     @Override
     protected void onPostExecute(Team team) {
         super.onPostExecute(team);
-        activity.dataLoaded(team);
+        if(activity != null)
+            activity.dataLoaded(team);
     }
 
 

@@ -1,9 +1,10 @@
 package com.dam.footstream;
 
-import android.app.Activity;
 import android.app.SearchManager;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -22,7 +23,7 @@ import java.util.ArrayList;
 /**
  * Created by Felix on 23.11.2015.
  */
-public class BusquedaActivity extends Activity {
+public class BusquedaActivity extends AppCompatActivity {
 
     private ProgressBar busqueda_progressbar;
     private ListView busqueda_listview;
@@ -58,7 +59,6 @@ public class BusquedaActivity extends Activity {
 
     }
 
-
     private ListAdapter createListViewAdapter() {
         BaseAdapter adapter = new BaseAdapter() {
             @Override
@@ -78,12 +78,22 @@ public class BusquedaActivity extends Activity {
 
             @Override
             public View getView(final int position, View convertView, ViewGroup parent) {
-                TextView textview = new TextView(BusquedaActivity.this);
-                textview.setText(foundTeams.get(position).getName());
-                textview.setTextSize(20);
-                textview.setPadding(5, 10, 5, 10);
+                BusquedaListitem listitem;
 
-                return textview;
+                if (convertView == null) {
+                    LayoutInflater inflater = getLayoutInflater();
+                    convertView = inflater.inflate(R.layout.busqueda_listitem, parent, false);
+
+                    listitem = new BusquedaListitem();
+                    listitem.foundText = (TextView) convertView.findViewById(R.id.busqueda_found_text);
+
+                    convertView.setTag(listitem);
+                } else listitem = (BusquedaListitem) convertView.getTag();
+
+                Team t = foundTeams.get(position);
+                listitem.foundText.setText(t.getName());
+
+                return convertView;
             }
         };
         return adapter;
@@ -101,6 +111,10 @@ public class BusquedaActivity extends Activity {
         ((BaseAdapter) busqueda_listview.getAdapter()).notifyDataSetChanged();
         busqueda_progressbar.setVisibility(View.GONE);
         busqueda_listview.setVisibility(View.VISIBLE);
+    }
+
+    static class BusquedaListitem {
+        TextView foundText;
     }
 
 }
