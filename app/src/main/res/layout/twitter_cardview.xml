@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    card_view:cardCornerRadius="6dp"
+    card_view:cardElevation="7dp"
+    card_view:cardPreventCornerOverlap="false"
+    card_view:cardUseCompatPadding="true">
+
+    <LinearLayout
+        android:id="@+id/cardview_wrapper_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/twitter_cardview_background"
+        android:orientation="vertical"
+        android:clickable="true">
+
+        <TextView
+            android:id="@+id/twitter_teamname"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:gravity="center"
+            android:padding="2dp"/>
+
+        <TextView
+            android:id="@+id/twitter_textview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:layout_marginBottom="4dp"
+            android:padding="2dp"/>
+
+        <TextView
+            android:id="@+id/twitter_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:padding="2dp"
+            android:layout_marginRight="2dp"/>
+    </LinearLayout>
+</android.support.v7.widget.CardView>

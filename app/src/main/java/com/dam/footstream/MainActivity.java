@@ -3,20 +3,33 @@ package com.dam.footstream;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
+import android.text.Html;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+
+import com.dam.network.TwitterTask;
+
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    private LinearLayout cardviewLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,16 +38,22 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        cardviewLayout = (LinearLayout) findViewById(R.id.cardviewLayout);
+
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
+
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
         handleIntent(getIntent());
+
+        for (String team : SplashActivity.favoriteTeams.keySet())
+            new TwitterTask(this, team).execute(team);
     }
 
     @Override
@@ -121,4 +140,34 @@ public class MainActivity extends AppCompatActivity
 
         return true;
     }
+
+
+    public void twitterDataLoaded(ArrayList<twitter4j.Status> tweets, String team) {
+        SimpleDateFormat format = new SimpleDateFormat("HH:mm E dd/MM/yyyy");
+
+        for (final twitter4j.Status status : tweets) {
+            final CardView cardView = (CardView) getLayoutInflater().inflate(R.layout.twitter_cardview, null);
+            TextView textView = (TextView) cardView.findViewById(R.id.twitter_textview);
+            TextView dateTextView = (TextView) cardView.findViewById(R.id.twitter_date);
+            TextView teamName = (TextView) cardView.findViewById(R.id.twitter_teamname);
+            LinearLayout layout = (LinearLayout) cardView.findViewById(R.id.cardview_wrapper_layout);
+
+            textView.setText(Html.fromHtml("<font color=\"#00aced\">@" + status.getUser().getScreenName() + "</font>: " + status.getText() + ""));
+            dateTextView.setText(format.format(status.getCreatedAt()));
+            teamName.setText(team);
+            cardviewLayout.addView(cardView);
+            cardviewLayout.invalidate();
+
+            layout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //open tweet in browser or Twitter app (if installed)
+                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://twitter.com/" + status.getUser().getScreenName() + "+/status/" + status.getId()));
+                    startActivity(intent);
+                }
+            });
+
+        }
+    }
+
 }

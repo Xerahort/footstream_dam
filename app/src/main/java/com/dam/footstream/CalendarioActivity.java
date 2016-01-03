@@ -42,8 +42,6 @@ public class CalendarioActivity extends AppCompatActivity {
         match_listview = (ListView) findViewById(R.id.calendar_matchlist);
 
         calendar = (CaldroidFragment) getSupportFragmentManager().findFragmentById(R.id.calendar_fragment);
-        //calendar.setBackgroundResourceForDate(R.drawable.matchday_hightlight_calendar, new GregorianCalendar(2015, GregorianCalendar.DECEMBER, 20).getTime());
-        //calendar.refreshView();
 
         CalendarDataTask task = new CalendarDataTask(this,new ArrayList<String>(SplashActivity.favoriteTeams.values()));
         task.execute();
