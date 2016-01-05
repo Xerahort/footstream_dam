@@ -86,12 +86,15 @@ public class EquipoActivity extends AppCompatActivity {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
                     SplashActivity.favorites_editor.putString(id, team_id);
-                    SplashActivity.favoriteTeams.put(id,team_id);
+                    SplashActivity.favoriteTeams.put(id, team_id);
+                    MainActivity.notAddedTweets.add(id);
+                    MainActivity.notRemovedTweets.remove(id);
                 }
                 else {
                     SplashActivity.favorites_editor.remove(id);
                     SplashActivity.favoriteTeams.remove(id);
-
+                    MainActivity.notAddedTweets.remove(id);
+                    MainActivity.notRemovedTweets.add(id);
                 }
                 SplashActivity.favorites_editor.commit();
             }

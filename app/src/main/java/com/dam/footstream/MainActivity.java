@@ -23,13 +23,20 @@ import android.widget.TextView;
 
 import com.dam.network.TwitterTask;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private LinearLayout cardviewLayout;
+    //contains the teamnames of teams whose tweets haven't been already added
+    public static ArrayList<String> notAddedTweets = new ArrayList<>();
+    //contains the teamnames of teams which have been removed from the favorites and whose tweets appear in MainActivity
+    public static ArrayList<String> notRemovedTweets = new ArrayList<>();
+    private SimpleDateFormat format = new SimpleDateFormat("HH:mm E dd/MM/yyyy");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +61,18 @@ public class MainActivity extends AppCompatActivity
 
         for (String team : SplashActivity.favoriteTeams.keySet())
             new TwitterTask(this, team).execute(team);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        //show tweets of recently added favorite teams
+        for (String team : notAddedTweets)
+            new TwitterTask(this, team).execute(team);
+        notAddedTweets.clear();
+        for (String team : notRemovedTweets)
+            removeTeamTweets(team);
+        notRemovedTweets.clear();
     }
 
     @Override
@@ -142,9 +161,13 @@ public class MainActivity extends AppCompatActivity
     }
 
 
+    /**
+     * Adds new Tweets as cardviews to the MainActivity.
+     *
+     * @param tweets
+     * @param team
+     */
     public void twitterDataLoaded(ArrayList<twitter4j.Status> tweets, String team) {
-        SimpleDateFormat format = new SimpleDateFormat("HH:mm E dd/MM/yyyy");
-
         for (final twitter4j.Status status : tweets) {
             final CardView cardView = (CardView) getLayoutInflater().inflate(R.layout.twitter_cardview, null);
             TextView textView = (TextView) cardView.findViewById(R.id.twitter_textview);
@@ -155,7 +178,8 @@ public class MainActivity extends AppCompatActivity
             textView.setText(Html.fromHtml("<font color=\"#00aced\">@" + status.getUser().getScreenName() + "</font>: " + status.getText() + ""));
             dateTextView.setText(format.format(status.getCreatedAt()));
             teamName.setText(team);
-            cardviewLayout.addView(cardView);
+            addTweetAtRightPosition(cardView, status.getCreatedAt());
+            //cardviewLayout.addView(cardView);
             cardviewLayout.invalidate();
 
             layout.setOnClickListener(new View.OnClickListener() {
@@ -167,6 +191,47 @@ public class MainActivity extends AppCompatActivity
                 }
             });
 
+        }
+    }
+
+    /**
+     * Adds the given cardView at the right position in the CardView-Layout according to date (ascending).
+     *
+     * @param cardView the cardview that should be added
+     */
+    private void addTweetAtRightPosition(CardView cardView, Date tweetDate) {
+        for (int i = 0; i < cardviewLayout.getChildCount(); i++) {
+            View v = cardviewLayout.getChildAt(i);
+            if (v.findViewById(R.id.twitter_date) != null) {
+                try {
+                    Date d = format.parse(((TextView) v.findViewById(R.id.twitter_date)).getText().toString());
+                    if (d.before(tweetDate)) {
+                        cardviewLayout.addView(cardView, i);
+                        return;
+                    }
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        cardviewLayout.addView(cardView);
+    }
+
+    /**
+     * Removes all tweets of the given team from the CardView-Layout.
+     *
+     * @param team team to delete
+     */
+    private void removeTeamTweets(String team) {
+        for (int i = 0; i < cardviewLayout.getChildCount(); i++) {
+            View v = cardviewLayout.getChildAt(i);
+            if (v.findViewById(R.id.twitter_teamname) != null) {
+                if (((TextView) v.findViewById(R.id.twitter_teamname)).getText().toString().equals(team)) {
+                    cardviewLayout.removeView(v);
+                    cardviewLayout.invalidate();
+                    i--;
+                }
+            }
         }
     }
 
