@@ -1,9 +1,8 @@
 package com.dam.footstream;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -13,19 +12,19 @@ import java.util.ArrayList;
 
 public class FavoritosActivity extends AppCompatActivity {
 
+    public static ArrayList<String> datos;
+    private ArrayAdapter<String> adaptador;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_favoritos);
 
-        ListView favoriteTeams = (ListView)findViewById(R.id.list_favs);
+        ListView favoriteTeams = (ListView) findViewById(R.id.list_favs);
 
-        String[] datos = new String[SplashActivity.favoriteTeams.size()];
-        SplashActivity.favoriteTeams.keySet().toArray(datos);
+        datos = new ArrayList<>(SplashActivity.favoriteTeams.keySet());
 
-        final String[] d = datos;
-
-        ArrayAdapter<String> adaptador =
+        adaptador =
                 new ArrayAdapter<>(
                         this,
                         android.R.layout.simple_list_item_1,
@@ -35,7 +34,7 @@ public class FavoritosActivity extends AppCompatActivity {
         favoriteTeams.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String idteam = SplashActivity.favorites.getString(d[position],"");
+                String idteam = SplashActivity.favorites.getString(datos.get(position), "");
                 if (!idteam.equals("")) {
                     Intent i = new Intent(FavoritosActivity.this, EquipoActivity.class);
                     i.putExtra(EquipoActivity.TEAM_ID, idteam);
@@ -44,5 +43,11 @@ public class FavoritosActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (adaptador != null) adaptador.notifyDataSetChanged();
     }
 }

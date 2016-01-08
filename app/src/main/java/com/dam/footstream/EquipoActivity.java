@@ -42,7 +42,7 @@ public class EquipoActivity extends AppCompatActivity {
         Intent i = getIntent();
         team_id = i.getStringExtra(TEAM_ID);
 
-        fav = (ToggleButton)findViewById(R.id.tb_favteam);
+        fav = (ToggleButton) findViewById(R.id.tb_favteam);
         matches_listview = (ListView) findViewById(R.id.matches_listview);
         loading_progressbar = (ProgressBar) findViewById(R.id.team_progresscircle);
         marketvalue_textview = (TextView) findViewById(R.id.marketvalue_textview);
@@ -78,7 +78,7 @@ public class EquipoActivity extends AppCompatActivity {
         matches_listview.setVisibility(View.VISIBLE);
         fav.setVisibility(View.VISIBLE);
         final String id = team.getName();
-        String isFav = SplashActivity.favorites.getString(id,"");
+        String isFav = SplashActivity.favorites.getString(id, "");
         if (isFav.equals(team_id)) fav.setChecked(true);
         else fav.setChecked(false);
         fav.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -89,12 +89,13 @@ public class EquipoActivity extends AppCompatActivity {
                     SplashActivity.favoriteTeams.put(id, team_id);
                     MainActivity.notAddedTweets.add(id);
                     MainActivity.notRemovedTweets.remove(id);
-                }
-                else {
+                    if (FavoritosActivity.datos != null) FavoritosActivity.datos.add(id);
+                } else {
                     SplashActivity.favorites_editor.remove(id);
                     SplashActivity.favoriteTeams.remove(id);
                     MainActivity.notAddedTweets.remove(id);
                     MainActivity.notRemovedTweets.add(id);
+                    if (FavoritosActivity.datos != null) FavoritosActivity.datos.remove(id);
                 }
                 SplashActivity.favorites_editor.commit();
             }
@@ -148,7 +149,8 @@ public class EquipoActivity extends AppCompatActivity {
                 listitem.awayTeam.setText(m.getAwayTeam().getName());
                 listitem.score.setText(m.getGoalsHomeTeam() + " - " + m.getGoalsAwayTeam());
 
-                if(m.isFinished()) listitem.score.setBackgroundResource(R.drawable.match_finished_background);
+                if (m.isFinished())
+                    listitem.score.setBackgroundResource(R.drawable.match_finished_background);
                 else listitem.score.setBackgroundResource(R.drawable.match_not_finished_background);
 
                 return convertView;
@@ -161,5 +163,5 @@ public class EquipoActivity extends AppCompatActivity {
     static class MatchListitem {
         TextView date, homeTeam, awayTeam, score;
     }
-    
+
 }
