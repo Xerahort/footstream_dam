@@ -4,8 +4,6 @@
     <group android:checkableBehavior="single">
         <item android:id="@+id/nav_clasificacion" android:icon="@android:drawable/ic_menu_camera"
             android:title="@string/clasification" />
-        <item android:id="@+id/nav_notificaciones" android:icon="@android:drawable/ic_menu_gallery"
-            android:title="@string/notifications" />
         <item android:id="@+id/nav_alarma_sleep" android:icon="@android:drawable/ic_menu_slideshow"
             android:title="@string/alarm_sleep" />
         <item android:id="@+id/nav_favoritos" android:icon="@android:drawable/ic_menu_manage"
@@ -20,8 +18,6 @@
             android:title="@string/cal" />
         <item android:id="@+id/nav_entradas" android:icon="@android:drawable/ic_menu_manage"
             android:title="@string/tickets" />
-        <item android:id="@+id/nav_ajustes" android:icon="@android:drawable/ic_menu_slideshow"
-            android:title="@string/settings" />
     </group>
 
 </menu>

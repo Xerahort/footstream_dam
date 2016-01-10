@@ -20,4 +20,6 @@
     <string name="example">Equipo, partido, etc...</string>
     <string name="buscador">Buscador</string>
     <string name="favorito">Fav</string>
+    <string name="last_match">Último partido</string>
+    <string name="next_match">Siguiente partido</string>
 </resources>

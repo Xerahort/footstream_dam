@@ -11,42 +11,194 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-    <LinearLayout
-        android:id="@+id/cardviewLayout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
 
-        <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/card1"
+        <LinearLayout
+            android:id="@+id/cardviewLayout"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
-            card_view:cardCornerRadius="6dp"
-            card_view:cardElevation="10dp"
-            card_view:cardPreventCornerOverlap="false"
-            card_view:cardUseCompatPadding="true">
-
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scaleType="centerCrop"
-                android:src="@drawable/ic_marca" />
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
             <TextView
-                android:id="@+id/txt2"
+                android:id="@+id/last_match"
+                android:layout_marginTop="60dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/last_match"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textStyle="bold"
+                android:layout_gravity="center_horizontal" />
+
+            <android.support.v7.widget.CardView
+                xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/card1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="bottom"
-                android:background="#8c000000"
-                android:padding="10dp"
-                android:text="@string/app_name"
-                android:textColor="#ffe3e3e3"
-                android:textSize="30sp"
-                android:textStyle="bold" />
+                card_view:cardCornerRadius="6dp"
+                card_view:cardElevation="10dp"
+                card_view:cardPreventCornerOverlap="false"
+                card_view:cardUseCompatPadding="true">
 
-        </android.support.v7.widget.CardView>
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/football_background" />
 
-    </LinearLayout>
+                <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:orientation="vertical"
+                    android:layout_gravity="center"
+                    android:gravity="center">
+
+                    <TextView
+                        android:id="@+id/not_match_date_textview"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:gravity="center"
+                        android:textStyle="bold"
+                        android:textColor="#ffffff" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center">
+
+                        <TextView
+                            android:id="@+id/not_match_score_textview"
+                            android:layout_width="80dp"
+                            android:layout_height="45dp"
+                            android:layout_centerInParent="true"
+                            android:gravity="center"
+                            android:padding="5dp"
+                            android:textAppearance="?android:attr/textAppearanceLarge"
+                            android:textColor="#ffffff" />
+
+                        <TextView
+                            android:id="@+id/not_match_hometeam_textview"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentLeft="true"
+                            android:layout_toLeftOf="@id/not_match_score_textview"
+                            android:gravity="center"
+                            android:padding="3dp"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:textColor="#ffffff"
+                            android:textStyle="bold" />
+
+
+                        <TextView
+                            android:id="@+id/not_match_awayteam_textview"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_toRightOf="@id/not_match_score_textview"
+                            android:gravity="center"
+                            android:padding="3dp"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:textStyle="bold"
+                            android:textColor="#ffffff" />
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <TextView
+                android:id="@+id/next_match"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/next_match"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textStyle="bold"
+                android:layout_gravity="center_horizontal" />
+
+            <android.support.v7.widget.CardView
+                xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/card2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                card_view:cardCornerRadius="6dp"
+                card_view:cardElevation="10dp"
+                card_view:cardPreventCornerOverlap="false"
+                card_view:cardUseCompatPadding="true">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/football_background" />
+
+                <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:orientation="vertical"
+                    android:layout_gravity="center"
+                    android:gravity="center">
+
+                    <TextView
+                        android:id="@+id/not2_match_date_textview"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:gravity="center"
+                        android:textStyle="bold"
+                        android:textColor="#ffffff" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center">
+
+                        <TextView
+                            android:id="@+id/not2_match_score_textview"
+                            android:layout_width="80dp"
+                            android:layout_height="45dp"
+                            android:layout_centerInParent="true"
+                            android:gravity="center"
+                            android:padding="5dp"
+                            android:textAppearance="?android:attr/textAppearanceLarge"
+                            android:textColor="#ffffff" />
+
+                        <TextView
+                            android:id="@+id/not2_match_hometeam_textview"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentLeft="true"
+                            android:layout_toLeftOf="@id/not2_match_score_textview"
+                            android:gravity="center"
+                            android:padding="3dp"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:textColor="#ffffff"
+                            android:textStyle="bold" />
+
+
+                        <TextView
+                            android:id="@+id/not2_match_awayteam_textview"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_toRightOf="@id/not2_match_score_textview"
+                            android:gravity="center"
+                            android:padding="3dp"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:textStyle="bold"
+                            android:textColor="#ffffff" />
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+        </LinearLayout>
+
     </ScrollView>
 
     <include

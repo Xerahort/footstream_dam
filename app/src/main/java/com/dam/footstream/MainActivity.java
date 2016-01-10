@@ -21,12 +21,16 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.dam.data.Match;
+import com.dam.data.Team;
+import com.dam.network.DownloadNotifications;
 import com.dam.network.TwitterTask;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -59,8 +63,11 @@ public class MainActivity extends AppCompatActivity
 
         handleIntent(getIntent());
 
+        new DownloadNotifications(this).execute();
+
         for (String team : SplashActivity.favoriteTeams.keySet())
             new TwitterTask(this, team).execute(team);
+
     }
 
     @Override
@@ -235,4 +242,36 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
+    public void dataLoaded(List<Match> list) {
+        boolean encontrado = false;
+        Match lm = null, nm = null;
+        int i = 1;
+        while (!encontrado && i<list.size()) {
+            if (list.get(i).getStatus().equals("TIMED")) {
+                nm = list.get(i);
+                lm = list.get(i-1);
+                encontrado = true;
+            }
+            i++;
+        }
+
+        TextView tvNot1Away = (TextView)findViewById(R.id.not_match_awayteam_textview);
+        TextView tvNot1Date = (TextView)findViewById(R.id.not_match_date_textview);
+        TextView tvNot1Home = (TextView)findViewById(R.id.not_match_hometeam_textview);
+        TextView tvNot1Scor = (TextView)findViewById(R.id.not_match_score_textview);
+
+        tvNot1Away.setText(lm.getAwayTeam().getName());
+        tvNot1Date.setText(lm.getDateText());
+        tvNot1Home.setText(lm.getHomeTeam().getName());
+        tvNot1Scor.setText(lm.getGoalsHomeTeam() + " - " + lm.getGoalsAwayTeam());
+
+        TextView tvNot2Away = (TextView)findViewById(R.id.not2_match_awayteam_textview);
+        TextView tvNot2Date = (TextView)findViewById(R.id.not2_match_date_textview);
+        TextView tvNot2Home = (TextView)findViewById(R.id.not2_match_hometeam_textview);
+
+        tvNot2Away.setText(nm.getAwayTeam().getName());
+        tvNot2Date.setText(nm.getDateText());
+        tvNot2Home.setText(nm.getHomeTeam().getName());
+
+    }
 }
