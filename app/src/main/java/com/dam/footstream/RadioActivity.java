@@ -23,7 +23,7 @@ public class RadioActivity extends AppCompatActivity implements OnClickListener 
     private MediaPlayer player;
     private ImageView logo;
     private int position;
-    private static final String RADIO_URLS[] = {"http://usa8-vn.mixstream.net:8138", "http://live1.interoutemediaservices.com/?i...13-3e8344c6a675", "http://cope.stream.flumotion.com/cope/copefm.mp3.m3u "};
+    private static final String RADIO_URLS[] = {"http://usa8-vn.mixstream.net:8138", "http://5243.live.streamtheworld.com/CADENASER_SC"};
 
 
     /**
@@ -34,6 +34,7 @@ public class RadioActivity extends AppCompatActivity implements OnClickListener 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_radio);
         position = getIntent().getIntExtra(RadiosActivity.RADIO_LOGO_EXTRA, 0);
+        Log.v("RadioActivity", "POSITION: " + Integer.toString(position));
 
         initializeUIElements();
 

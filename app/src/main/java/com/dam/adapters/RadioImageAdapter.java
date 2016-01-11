@@ -46,8 +46,6 @@ public class RadioImageAdapter extends BaseAdapter {
     // references to our images
     static public Integer[] mThumbIds = {
             R.drawable.ic_marca,
-            //R.drawable.ic_ser,
-            R.drawable.ic_realmadrid,
-            R.drawable.ic_cope
+            R.drawable.ic_ser
     };
 }
