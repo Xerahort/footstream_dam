@@ -1,20 +1,20 @@
 package com.dam.footstream;
 
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-
-import java.io.IOException;
-
 import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnBufferingUpdateListener;
 import android.media.MediaPlayer.OnPreparedListener;
+import android.net.Uri;
+import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
-import com.dam.adapters.ImageAdapter;
+import com.dam.adapters.RadioImageAdapter;
+
+import java.io.IOException;
 
 public class RadioActivity extends AppCompatActivity implements OnClickListener {
 
@@ -22,12 +22,18 @@ public class RadioActivity extends AppCompatActivity implements OnClickListener 
     private ImageButton buttonStopPlay;
     private MediaPlayer player;
     private ImageView logo;
+    private int position;
+    private static final String RADIO_URLS[] = {"http://usa8-vn.mixstream.net:8138", "http://live1.interoutemediaservices.com/?i...13-3e8344c6a675", "http://cope.stream.flumotion.com/cope/copefm.mp3.m3u "};
 
-    /** Called when the activity is first created. */
+
+    /**
+     * Called when the activity is first created.
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_radio);
+        position = getIntent().getIntExtra(RadiosActivity.RADIO_LOGO_EXTRA, 0);
 
         initializeUIElements();
 
@@ -37,7 +43,7 @@ public class RadioActivity extends AppCompatActivity implements OnClickListener 
     private void initializeUIElements() {
 
         logo = (ImageView) findViewById(R.id.image_radio);
-        logo.setImageResource(ImageAdapter.mThumbIds[getIntent().getIntExtra(RadiosActivity.RADIO_LOGO_EXTRA,0)]);
+        logo.setImageResource(RadioImageAdapter.mThumbIds[getIntent().getIntExtra(RadiosActivity.RADIO_LOGO_EXTRA, 0)]);
 
         buttonPlay = (ImageButton) findViewById(R.id.button_play);
         buttonPlay.setOnClickListener(this);
@@ -91,7 +97,7 @@ public class RadioActivity extends AppCompatActivity implements OnClickListener 
     private void initializeMediaPlayer() {
         player = new MediaPlayer();
         try {
-            player.setDataSource("http://usa8-vn.mixstream.net:8138");
+            player.setDataSource(getApplicationContext(), Uri.parse(RADIO_URLS[position]));
         } catch (IllegalArgumentException | IOException | IllegalStateException e) {
             e.printStackTrace();
         }
