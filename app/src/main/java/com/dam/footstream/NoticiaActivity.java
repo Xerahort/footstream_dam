@@ -1,12 +1,9 @@
 package com.dam.footstream;
 
-import android.content.Intent;
-import android.net.Uri;
 import android.os.AsyncTask;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -14,38 +11,33 @@ import com.dam.rss.RssItem;
 import com.dam.rss.RssListListener;
 import com.dam.rss.RssReader;
 
-import org.xmlpull.v1.XmlPullParser;
-import org.xmlpull.v1.XmlPullParserException;
-import org.xmlpull.v1.XmlPullParserFactory;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.ArrayList;
 import java.util.List;
 
 public class NoticiaActivity extends AppCompatActivity {
 
     private NoticiaActivity local;
+    private int position;
+    private static final String NEWSPAPERS[] = {"http://estaticos.marca.com/rss/portada.xml", "http://cadenaser.com/rss/ser/portada.xml", "http://as.com/rss/tags/ultimas_noticias.xml", "http://www.mundodeportivo.com/feed/rss/futbol", "http://www.sport.es/es/rss/last_news/rss.xml"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_noticia);
-// Set reference to this activity
+        // Set reference to this activity
         local = this;
+        position = getIntent().getIntExtra(NoticiasActivity.NOTICIA_LOGO_EXTRA, 0);
 
         RssDataTask task = new RssDataTask();
 
         // Start download RSS task
-        task.execute("http://estaticos.marca.com/rss/portada.xml");
+        task.execute(NEWSPAPERS[position]);
+
 
         // Debug the thread name
         Log.d("ITCRssReader", Thread.currentThread().getName());
     }
 
-    public class RssDataTask extends AsyncTask<String, Void, List<RssItem> > {
+    public class RssDataTask extends AsyncTask<String, Void, List<RssItem>> {
         @Override
         protected List<RssItem> doInBackground(String... urls) {
 
@@ -73,7 +65,7 @@ public class NoticiaActivity extends AppCompatActivity {
             ListView itcItems = (ListView) findViewById(R.id.list_rss);
 
             // Create a list adapter
-            ArrayAdapter<RssItem> adapter = new ArrayAdapter<>(local,android.R.layout.simple_list_item_1, result);
+            ArrayAdapter<RssItem> adapter = new ArrayAdapter<>(local, android.R.layout.simple_list_item_1, result);
             // Set list adapter for the ListView
             itcItems.setAdapter(adapter);
 
@@ -81,5 +73,6 @@ public class NoticiaActivity extends AppCompatActivity {
             itcItems.setOnItemClickListener(new RssListListener(result, local));
         }
     }
+
 }
 

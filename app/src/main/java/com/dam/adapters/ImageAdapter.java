@@ -46,6 +46,9 @@ public class ImageAdapter extends BaseAdapter {
     // references to our images
     static public Integer[] mThumbIds = {
             R.drawable.ic_marca,
-            R.drawable.ic_ser
+            R.drawable.ic_ser,
+            R.drawable.ic_as,
+            R.drawable.ic_md,
+            R.drawable.ic_sport
     };
 }
